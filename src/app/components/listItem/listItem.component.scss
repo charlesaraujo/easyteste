@@ -3,7 +3,7 @@
   color: var(--colors-black);
   padding: 0.5rem;
   border-radius: 0.4rem;
-  border-left: darkorchid 5px solid;
+  border-left: 5px solid var(--colors-purple);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
@@ -19,5 +19,11 @@
   }
   span {
     font-weight: 400;
+  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    height: 5rem;
+    justify-content: space-between;
   }
 }

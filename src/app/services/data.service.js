@@ -33,5 +33,18 @@ class Data {
     users.push(user);
     this.setUsers(users);
   }
+  deleteUser(index) {
+    const users = this.getUsers();
+    users.splice(index, 1);
+    this.setUsers(users);
+  }
+  updateUser(user) {
+    const users = this.getUsers();
+    users[user.index].name = user.name;
+    users[user.index].email = user.email;
+    users[user.index].cpf = user.cpf;
+    users[user.index].phone = user.phone;
+    this.setUsers(users);
+  }
 }
 export default Data;

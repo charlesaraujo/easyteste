@@ -14,13 +14,14 @@ class Button extends HTMLElement {
     `;
     if (this.props.action) {
       const button = this.querySelector("button");
-      button.addEventListener("click", (e) => {
+      button.addEventListener("click", () => {
         this.props.action();
-        if (this.props.showLoader) {
-          console.log("jooas");
+        if (this.props.blockedColor) {
           button.setAttribute("disabled", "true");
+          button.style.backgroundColor = this.props.blockedColor;
+        }
+        if (this.props.showLoader) {
           button.innerHTML = '<div class="loader"></div>';
-          button.style.backgroundColor = "var(--success)";
         }
       });
     }

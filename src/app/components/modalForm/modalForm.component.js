@@ -9,18 +9,17 @@ class ModalForm extends HTMLElement {
     this.data = new Data();
     this.masks = new Mask();
     this.validator = new Validator();
-    this.formValid = { name: false, cpf: false, email: false, phone: false };
+    this.formValid;
   }
   connectedCallback() {
+    this.formValid = {
+      name: this.props.update,
+      cpf: this.props.update,
+      email: this.props.update,
+      phone: this.props.update,
+    };
     this.render();
     this.setupValidatorsAndMasks();
-  }
-
-  setupMasks() {
-    this.querySelector("#phone").onkeyup = (e) => {};
-    this.querySelector("#cpf").onkeyup = (e) => {
-      e.target.value = this.masks.cpf(e.target.value);
-    };
   }
 
   dinamicValidationAndMasks(name) {
@@ -30,7 +29,7 @@ class ModalForm extends HTMLElement {
       if (name == "phone" || name == "cpf") {
         e.target.value = this.masks[name](e.target.value);
       }
-      let isValid = this.validator[name](e.target.value);
+      let isValid = this.validator[name](element.value);
       if (!isValid) {
         element.setCustomValidity("Invalid field.");
         errorLabel.style.visibility = "visible";
@@ -42,6 +41,7 @@ class ModalForm extends HTMLElement {
       this.isFormValid();
     };
   }
+
   setupValidatorsAndMasks() {
     this.dinamicValidationAndMasks("name");
     this.dinamicValidationAndMasks("email");
@@ -54,16 +54,15 @@ class ModalForm extends HTMLElement {
     const btn = this.querySelector(".modal-footer .btn");
     const hasDisable = btn.hasAttribute("disabled");
     if (name && cpf && email && phone) {
-      hasDisable ? btn.removeAttribute("disabled") : null;
+      btn.removeAttribute("disabled");
       return true;
     }
-    !hasDisable ? btn.setAttribute("disabled", "true") : null;
+    btn.setAttribute("disabled", "true");
     return false;
   }
 
   close() {
-    const modal = document.querySelector("modal-form");
-    modal.parentElement.removeChild(modal);
+    this.props.refresh();
   }
 
   saveUser() {
@@ -72,9 +71,22 @@ class ModalForm extends HTMLElement {
     const name = this.querySelector("#name").value;
     const phone = this.masks.clear(this.querySelector("#phone").value);
     this.data.addUser({ name, phone, email, cpf });
-    setTimeout(() => this.props.refresh(), 2000);
+    setTimeout(() => this.props.refresh(), 1000);
   }
-  updateUser() {}
+  updateUser() {
+    const cpf = this.masks.clear(this.querySelector("#cpf").value);
+    const email = this.querySelector("#email").value;
+    const name = this.querySelector("#name").value;
+    const phone = this.masks.clear(this.querySelector("#phone").value);
+    this.data.updateUser({
+      index: this.props.user.index,
+      name,
+      phone,
+      email,
+      cpf,
+    });
+    setTimeout(() => this.props.refresh(), 1000);
+  }
 
   render() {
     this.innerHTML = `
@@ -88,25 +100,41 @@ class ModalForm extends HTMLElement {
             <form>
              
               <div class="field">
-                <input type="text" name="name" id="name" placeholder="digite seu nome">
+                <input type="text" name="name" id="name" 
+                placeholder="digite seu nome" ${
+                  this.props.update ? `value='${this.props.user.name}'` : ""
+                }>
                 <label for="name">Nome completo (sem abreviações)</label>
               </div>
               <span id="error-name" class="error">Campo deve ter 3 caracteres ou mais</span>
     
               <div class="field">
-                <input type="email" name="email" id="email" placeholder="digite seu email">
+                <input type="email" name="email" id="email" 
+                placeholder="digite seu email" ${
+                  this.props.update ? `value='${this.props.user.email}'` : ""
+                }>
                 <label for="email">E-mail</label>
               </div>
               <span id="error-email" class="error">Email inválido</span>
 
               <div class="field">
-                <input type="text" name="cpf" id="cpf" placeholder="digite seu cpf">
+                <input type="text" name="cpf" id="cpf" 
+                placeholder="digite seu cpf" ${
+                  this.props.update
+                    ? `value='${this.masks.cpf(this.props.user.cpf)}'`
+                    : ""
+                }>
                 <label for="cpf">CPF</label>
               </div>
               <span id="error-cpf" class="error">CPF inválido</span>
 
               <div class="field">
-                <input type="text" name="phone" id="phone" placeholder="digite seu telefone">
+                <input type="text" name="phone" id="phone" 
+                placeholder="digite seu telefone" ${
+                  this.props.update
+                    ? `value='${this.masks.phone(this.props.user.phone)}'`
+                    : ""
+                }>
                 <label for="phone">Telefone</label>
               </div>
               <span id="error-phone" class="error">Telefone inválido</span>
@@ -119,11 +147,12 @@ class ModalForm extends HTMLElement {
         </div>
       </div>
     `;
+
     this.props.createComp(".modal-header", "ez-button", {
       title: "",
-      class: "transparent",
+      class: "sm danger",
       icon: "icon-close",
-      action: this.close,
+      action: () => this.close(),
     });
 
     this.props.createComp(".modal-footer", "ez-button", {
@@ -134,6 +163,7 @@ class ModalForm extends HTMLElement {
         : () => this.saveUser(),
       disabled: this.props.update ? false : true,
       showLoader: true,
+      blockedColor: "var(--success)",
     });
   }
 }

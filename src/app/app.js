@@ -11,31 +11,40 @@ class App extends HTMLElement {
     this.users = [];
   }
 
+  createComp(container, element, data) {
+    const parent =
+      typeof container == "object"
+        ? container
+        : document.querySelector(container);
+    const el = document.createElement(element);
+    el.props = data;
+    parent.appendChild(el);
+  }
+
   async connectedCallback() {
     this.users = await this.data.getFisrtData();
     this.render();
   }
 
   createList() {
-    this.users.forEach((user) => {
-      this.createComp(".list-container", "list-item", user);
+    this.users.forEach((user, index) => {
+      this.createComp(".list-container", "list-item", {
+        user,
+        index,
+        createComp: this.createComp,
+        refresh: () => this.connectedCallback(),
+      });
     });
   }
 
-  createComp(container, element, data) {
-    const parent = document.querySelector(container);
-    const el = document.createElement(element);
-    el.props = data;
-    parent.appendChild(el);
-  }
-
   render() {
-    this.innerHTML = `        
+    this.innerHTML = `
         <header>
             <h1>Teste easynvest</h1>
         </header>
         <div class="list-container"></div>
     `;
+
     this.createList();
 
     this.createComp("header", "ez-button", {
