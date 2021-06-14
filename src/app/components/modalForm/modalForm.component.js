@@ -1,12 +1,14 @@
-import Mask from "../../services/mask.service";
+import Mask from "../../services/mask/mask.service";
 import Data from "../../services/data.service";
 import Validator from "../../services/validator.service";
+import WebComponent from "../../services/webcomponent.service";
 import "./modalForm.component.scss";
 
 class ModalForm extends HTMLElement {
   constructor() {
     super();
     this.data = new Data();
+    this.wc = new WebComponent();
     this.masks = new Mask();
     this.validator = new Validator();
     this.formValid;
@@ -52,7 +54,6 @@ class ModalForm extends HTMLElement {
   isFormValid() {
     const { name, cpf, email, phone } = this.formValid;
     const btn = this.querySelector(".modal-footer .btn");
-    const hasDisable = btn.hasAttribute("disabled");
     if (name && cpf && email && phone) {
       btn.removeAttribute("disabled");
       return true;
@@ -65,25 +66,25 @@ class ModalForm extends HTMLElement {
     this.props.refresh();
   }
 
+  formData() {
+    return {
+      cpf: this.masks.clear(this.querySelector("#cpf").value),
+      email: this.querySelector("#email").value,
+      name: this.querySelector("#name").value,
+      phone: this.masks.clear(this.querySelector("#phone").value),
+    };
+  }
+
   saveUser() {
-    const cpf = this.masks.clear(this.querySelector("#cpf").value);
-    const email = this.querySelector("#email").value;
-    const name = this.querySelector("#name").value;
-    const phone = this.masks.clear(this.querySelector("#phone").value);
-    this.data.addUser({ name, phone, email, cpf });
+    const userData = this.formData();
+    this.data.addUser(userData);
     setTimeout(() => this.props.refresh(), 1000);
   }
   updateUser() {
-    const cpf = this.masks.clear(this.querySelector("#cpf").value);
-    const email = this.querySelector("#email").value;
-    const name = this.querySelector("#name").value;
-    const phone = this.masks.clear(this.querySelector("#phone").value);
+    const userData = this.formData();
     this.data.updateUser({
       index: this.props.user.index,
-      name,
-      phone,
-      email,
-      cpf,
+      ...userData,
     });
     setTimeout(() => this.props.refresh(), 1000);
   }
@@ -148,20 +149,20 @@ class ModalForm extends HTMLElement {
       </div>
     `;
 
-    this.props.createComp(".modal-header", "ez-button", {
+    this.wc.create(".modal-header", "ez-button", {
       title: "",
       class: "sm danger",
       icon: "icon-close",
       action: () => this.close(),
     });
 
-    this.props.createComp(".modal-footer", "ez-button", {
+    this.wc.create(".modal-footer", "ez-button", {
       title: this.props.update ? "Atualizar usuário" : "Cadastrar usuário",
       class: "xl",
       action: this.props.update
         ? () => this.updateUser()
         : () => this.saveUser(),
-      disabled: this.props.update ? false : true,
+      disabled: !this.props.update,
       showLoader: true,
       blockedColor: "var(--success)",
     });

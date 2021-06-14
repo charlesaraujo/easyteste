@@ -1,9 +1,11 @@
 import Data from "../../services/data.service";
-import Mask from "../../services/mask.service";
+import WebComponent from "../../services/webcomponent.service";
+import Mask from "../../services/mask/mask.service";
 import "./listItem.component.scss";
 class ListItem extends HTMLElement {
   constructor() {
     super();
+    this.wc = new WebComponent();
     this.masks = new Mask();
     this.data = new Data();
   }
@@ -34,15 +36,12 @@ class ListItem extends HTMLElement {
     </div>
     `;
 
-    const actions = this.querySelector(".actions");
-
-    this.props.createComp(actions, "ez-button", {
+    this.wc.create(this.querySelector(".actions"), "ez-button", {
       title: "",
       class: "sm purple",
       icon: "icon-edit",
       action: () =>
-        this.props.createComp("ez-app", "modal-form", {
-          createComp: this.props.createComp,
+        this.wc.create("ez-app", "modal-form", {
           update: true,
           user: { ...this.props.user, index: this.props.index },
           refresh: () => this.props.refresh(),
@@ -50,7 +49,7 @@ class ListItem extends HTMLElement {
       blockedColor: "var(--colors-purple)",
     });
 
-    this.props.createComp(actions, "ez-button", {
+    this.wc.create(this.querySelector(".actions"), "ez-button", {
       title: "",
       class: "sm danger",
       icon: "icon-close",

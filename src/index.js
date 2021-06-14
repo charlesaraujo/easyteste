@@ -12,21 +12,13 @@ const setup = () => {
 };
 /**
  * TODO
-
- * MODAL
- * --EDIÇÃO
- *
- * LISTA
- * -EXCLUIR E EDITAR CADASTROS
- * 
  * REQ:
  * -TESTES UNITARIOS
  * -BOAS PRATICAS DE OO
  * -INSTRUÇOES NO REDME
  * -DESCRIÇÃO DE COMO FOI FEITO
- * 
+ *
  * PLUS:
- * -PERMITIR EDIÇÃO
  * -TESTE E2E
  * -PWA
  */

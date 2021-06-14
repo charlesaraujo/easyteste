@@ -1,4 +1,5 @@
 import Data from "./services/data.service";
+import WebComponent from "./services/webcomponent.service";
 import "./components/listItem/listItem.component";
 import "./components/button/button.component";
 import "./components/modalForm/modalForm.component";
@@ -7,20 +8,10 @@ import "./app.scss";
 class App extends HTMLElement {
   constructor() {
     super();
+    this.wc = new WebComponent();
     this.data = new Data();
     this.users = [];
   }
-
-  createComp(container, element, data) {
-    const parent =
-      typeof container == "object"
-        ? container
-        : document.querySelector(container);
-    const el = document.createElement(element);
-    el.props = data;
-    parent.appendChild(el);
-  }
-
   async connectedCallback() {
     this.users = await this.data.getFisrtData();
     this.render();
@@ -28,10 +19,9 @@ class App extends HTMLElement {
 
   createList() {
     this.users.forEach((user, index) => {
-      this.createComp(".list-container", "list-item", {
+      this.wc.create(".list-container", "list-item", {
         user,
         index,
-        createComp: this.createComp,
         refresh: () => this.connectedCallback(),
       });
     });
@@ -47,13 +37,12 @@ class App extends HTMLElement {
 
     this.createList();
 
-    this.createComp("header", "ez-button", {
+    this.wc.create(this.querySelector("header"), "ez-button", {
       title: "Adicionar usuário",
       class: "xl",
       icon: "icon-add",
       action: () =>
-        this.createComp("ez-app", "modal-form", {
-          createComp: this.createComp,
+        this.wc.create(this, "modal-form", {
           update: false,
           refresh: () => this.connectedCallback(),
         }),

@@ -12,6 +12,7 @@ class Button extends HTMLElement {
            ${this.props.icon ? `<i class="${this.props.icon}"></i>` : ""}
         </button>
     `;
+
     if (this.props.action) {
       const button = this.querySelector("button");
       button.addEventListener("click", () => {
