@@ -56,8 +56,11 @@ img {
 body {
   background-color: var(--colors-white);
   color: var(--colors-black);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 0.5rem;
 }
-body.dark {
-  background-color: var(--colors-black);
-  color: var(--colors-white);
+main {
+  max-width: 972px;
+  margin: 0 auto;
 }

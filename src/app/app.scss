@@ -1,0 +1,13 @@
+ez-app {
+  header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .list-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: max-content;
+    grid-auto-flow: row dense;
+  }
+}

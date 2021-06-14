@@ -1,0 +1,23 @@
+.list-item {
+  background: var(--colors-white);
+  color: var(--colors-black);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border-left: darkorchid 5px solid;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  p {
+    font-weight: 200;
+    margin-bottom: 0.25rem;
+  }
+  span {
+    font-weight: 400;
+  }
+}

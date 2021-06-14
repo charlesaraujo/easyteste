@@ -1,22 +1,23 @@
 import "./static/styles/styles.scss";
-console.log("setup project");
+import "./app/app";
 
+window.addEventListener("load", () => {
+  setup();
+});
+
+const setup = async () => {
+  const main = document.querySelector("main");
+  const app = document.createElement("ez-app");
+  main.appendChild(app);
+};
 /**
  * TODO
  * 2 PAGINAS? 1 PAGINA E MODAL
  * MODAL
- * -FORMULARIO: NOME, CPF, TELEFONE, EMAIL
- * --ESTILO CONFORME DEFINIDO(INPUT E BOTOES)
- * --VALIDAÇOES E MASCARAS
  * --UTILIZAR O MESMO PARA CADASTRO E PARA EDIÇÃO
  *
  * LISTA
- * -CRIAR LISTAR E EXCLUIR CADASTROS
- * -PERSISTENCIA INDEXEDDB
- * -DADOS INICIAIS: https://private-21e8de-rafaellucio.apiary-mock.com/users
- * -A PARTIR DAI UTILIZAR INDEXEDDB
- *
- *
+ * -EXCLUIR CADASTROS
  * REQ:
  * -TESTES UNITARIOS
  * -BOAS PRATICAS DE OO
@@ -25,10 +26,8 @@ console.log("setup project");
  * PLUS:
  * -RESPONSIVIDADE
  * -PERMITIR EDIÇÃO
- * -PRE PROCESSADOR CSS
  * -TESTE E2E
  * -PWA
- * -DARK MODE
  *
  *
  */
