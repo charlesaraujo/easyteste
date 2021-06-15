@@ -22,11 +22,13 @@ cd easyteste/
 npm install
 ```
 
-Inicia o server de dev
+Inicia o server de dev execute o comando
 
 ```sh
 npm run dev
 ```
+
+acesse http://localhost:8080/ para ver a aplicação
 
 O comando de build gera a pasta /dist no projeto onde fica o codigo otimizado para prod
 
@@ -56,7 +58,9 @@ npm run test:coverage
 
 #### Testes End to End
 
-Para executar os testes e2e é necessario tambem iniciar o servidor dev da aplicação para disponibilizar uma url que o cypress consiga acessar, abra 2 terminais e em um deles execute o comando
+Para executar os testes e2e é necessario tambem iniciar o servidor dev da aplicação para disponibilizar uma url que o cypress consiga acessar.
+
+Abra 2 terminais e em um deles execute o comando
 
 ```sh
 npm run dev
