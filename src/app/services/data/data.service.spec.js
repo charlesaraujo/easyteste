@@ -78,13 +78,13 @@ describe("Data", () => {
     expect(data.addUser()).toBe(null);
   });
 
-  it("deleteUser: expect to get same data as mock after add", () => {
+  it("deleteUser: expect to get same data as mock after delete", () => {
     data.deleteUser(0);
     expect(mock).toBe(data.getUsers());
     expect(data.deleteUser()).toBe(null);
   });
 
-  it("updateUser: expect to get same data as mock after add", () => {
+  it("updateUser: expect to get same data as mock after update", () => {
     data.updateUser({ index: 0, ...user });
     expect(mock).toBe(data.getUsers());
     expect(data.updateUser()).toBe(null);
