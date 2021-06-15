@@ -56,7 +56,15 @@ npm run test:coverage
 
 #### Testes End to End
 
-Para executar todos os testes no terminal basta executar o seguinte comando
+Para executar os testes e2e é necessario tambem iniciar o servidor dev da aplicação para disponibilizar uma url que o cypress consiga acessar, abra 2 terminais e em um deles execute o comando
+
+```sh
+npm run dev
+```
+
+No outro terminal vc pode escolher qual tipo de teste quer fazer
+
+Para rodar todos os testes no terminal basta executar o seguinte comando
 
 ```sh
 npm run e2e
