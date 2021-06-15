@@ -8,7 +8,7 @@ describe("Update user", () => {
     cy.get("modal-form").should("have.length", 0);
   });
 
-  it("Update user", () => {
+  it("Update first user", () => {
     cy.visit("/");
     cy.get("list-item ez-button .purple").first().click();
     cy.get("input[name=name]")

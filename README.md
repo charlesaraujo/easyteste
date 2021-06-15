@@ -30,7 +30,7 @@ npm run dev
 
 acesse http://localhost:8080/ para ver a aplicação
 
-O comando de build gera a pasta /dist no projeto onde fica o codigo otimizado para prod
+O comando de build gera a pasta `/dist` no projeto onde fica o codigo otimizado para prod
 
 ```sh
 npm run build
@@ -58,7 +58,9 @@ npm run test:coverage
 
 #### Testes End to End
 
-Para executar os testes e2e é necessario tambem iniciar o servidor dev da aplicação para disponibilizar uma url que o cypress consiga acessar.
+Para executar os testes `e2e` é necessario tambem iniciar o servidor dev da aplicação para disponibilizar uma url que o cypress consiga acessar.
+
+A pasta onde ficam os testes `e2e` esta em `cypress/integration`
 
 Abra 2 terminais e em um deles execute o comando
 
