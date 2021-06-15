@@ -3,9 +3,11 @@
 </h1>
 <p  align="center">
 Este projeto foi feito para o teste da easynvest, seguindo o que foi solicitado no link abaixo:
-
+<p>
+<p  align="center">
 https://github.com/easynvest/teste-front-end
-
+</p>
+<p  align="center">
 Desenvolvido em javascript e utilizando o conceito de web componentes, sass, jest, cypress, e localStorage como banco de dados
 
 </p>
