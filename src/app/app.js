@@ -1,5 +1,5 @@
-import Data from "./services/data.service";
-import WebComponent from "./services/webcomponent.service";
+import Data from "./services/data/data.service";
+import WebComponent from "./services/webcomponent/webcomponent.service";
 import "./components/listItem/listItem.component";
 import "./components/button/button.component";
 import "./components/modalForm/modalForm.component";

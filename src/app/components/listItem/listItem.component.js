@@ -1,5 +1,5 @@
-import Data from "../../services/data.service";
-import WebComponent from "../../services/webcomponent.service";
+import Data from "../../services/data/data.service";
+import WebComponent from "../../services/webcomponent/webcomponent.service";
 import Mask from "../../services/mask/mask.service";
 import "./listItem.component.scss";
 class ListItem extends HTMLElement {

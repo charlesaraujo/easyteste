@@ -1,7 +1,7 @@
 import Mask from "../../services/mask/mask.service";
-import Data from "../../services/data.service";
-import Validator from "../../services/validator.service";
-import WebComponent from "../../services/webcomponent.service";
+import Data from "../../services/data/data.service";
+import Validator from "../../services/validator/validator.service";
+import WebComponent from "../../services/webcomponent/webcomponent.service";
 import "./modalForm.component.scss";
 
 class ModalForm extends HTMLElement {

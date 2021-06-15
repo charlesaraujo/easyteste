@@ -20,25 +20,29 @@ class Data {
 
   getUsers() {
     const users = localStorage.getItem(this.db);
-    if (!users) return null;
-    return JSON.parse(users);
+    return JSON.parse(users) || [];
   }
 
   setUsers(users) {
+    if (!users) return null;
     localStorage.setItem(this.db, JSON.stringify(users));
   }
 
   addUser(user) {
+    if (!user || !user.name) return null;
     const users = this.getUsers();
     users.push(user);
     this.setUsers(users);
   }
+
   deleteUser(index) {
+    if (!(index || index === 0)) return null;
     const users = this.getUsers();
     users.splice(index, 1);
     this.setUsers(users);
   }
   updateUser(user) {
+    if (!user) return null;
     const users = this.getUsers();
     users[user.index].name = user.name;
     users[user.index].email = user.email;

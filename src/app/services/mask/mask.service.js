@@ -1,6 +1,8 @@
 class Mask {
   phone(number) {
+    if (!number) return "";
     return number
+      .toString()
       .replace(/\D+/g, "")
       .replace(/(\d{2})(\d)/, "($1) $2")
       .replace(/(\d{4})(\d)/, "$1-$2")
@@ -8,7 +10,9 @@ class Mask {
       .replace(/(-\d{4})\d+?$/, "$1");
   }
   cpf(value) {
+    if (!value) return "";
     return value
+      .toString()
       .replace(/\D+/g, "")
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d)/, "$1.$2")
@@ -16,7 +20,8 @@ class Mask {
       .replace(/(-\d{2})\d+?$/, "$1");
   }
   clear(value) {
-    return value.replace(/\D+/g, "");
+    if (!value) return "";
+    return value.toString().replace(/\D+/g, "");
   }
 }
 export default Mask;
